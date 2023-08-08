@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Objects;
 
+//Esta clase crea la id compuesta de orderItemEntity
 @Getter
 @Setter
 @NoArgsConstructor

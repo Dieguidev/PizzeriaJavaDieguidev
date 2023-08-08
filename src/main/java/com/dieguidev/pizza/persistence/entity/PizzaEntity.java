@@ -34,4 +34,7 @@ public class PizzaEntity {
     @Column(columnDefinition = "TINYINT", nullable = false)
     private Boolean available;
 
+    //relaciones
+    //@OneToOne
+    //private OrderItemEntity orderItem;
 }
