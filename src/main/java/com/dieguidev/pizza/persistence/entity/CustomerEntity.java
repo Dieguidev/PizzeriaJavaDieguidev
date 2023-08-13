@@ -1,5 +1,6 @@
 package com.dieguidev.pizza.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class CustomerEntity {
 
     //Relaciones
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<OrderEntity> orders;
 
 }
