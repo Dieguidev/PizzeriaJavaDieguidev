@@ -23,8 +23,28 @@ public class PizzaService {
         return this.pizzaRepository.findAll();
     }
 
+    public List<PizzaEntity> getByAvailable() {
+        return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+    }
+
     public PizzaEntity getById(int idPizza){
         return this.pizzaRepository.findById(idPizza).orElse(null);
+    }
+
+    public PizzaEntity getByName(String namePizza){
+        return this.pizzaRepository.findFirstByAvailableTrueAndNameIgnoreCase(namePizza).orElseThrow(()->new RuntimeException("La pizza no existe"));
+    }
+
+    public List<PizzaEntity> getByIngredient(String description) {
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(description);
+    }
+
+    public List<PizzaEntity> getByNotIngredient(String description) {
+        return this.pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(description);
+    }
+
+    public List<PizzaEntity> getCheapest(double price) {
+        return this.pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
     }
 
     public PizzaEntity save(PizzaEntity pizza){
