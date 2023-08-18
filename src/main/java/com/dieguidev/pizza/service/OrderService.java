@@ -1,6 +1,7 @@
 package com.dieguidev.pizza.service;
 
 import com.dieguidev.pizza.persistence.entity.OrderEntity;
+import com.dieguidev.pizza.persistence.projection.OrderSummary;
 import com.dieguidev.pizza.persistence.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,10 @@ public class OrderService {
 
     public List<OrderEntity> getOrdersByCustomer(String idCustomer) {
         return this.orderRepository.findCustomerOrders(idCustomer);
+    }
+
+    public OrderSummary getSummary(int orderId) {
+        return this.orderRepository.findSummary(orderId);
     }
 }
 
