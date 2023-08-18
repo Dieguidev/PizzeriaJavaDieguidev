@@ -1,30 +1,38 @@
 package com.dieguidev.pizza.service;
 
 import com.dieguidev.pizza.persistence.entity.PizzaEntity;
+import com.dieguidev.pizza.persistence.repository.PizzaPagSortRepository;
 import com.dieguidev.pizza.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 //JdbcTemplate nos permite enviar una consulta sql para convertirlo en clase de java
 
 @Service
 public class PizzaService {
     private final PizzaRepository pizzaRepository;
+    private final PizzaPagSortRepository pizzaPagSortRepository;
 
     @Autowired
-    public PizzaService(PizzaRepository pizzaRepository) {
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
         this.pizzaRepository = pizzaRepository;
+        this.pizzaPagSortRepository = pizzaPagSortRepository;
     }
 
-    public List<PizzaEntity> getAll() {
-        return this.pizzaRepository.findAll();
+    public Page<PizzaEntity> getAll(int page, int elements) {
+        PageRequest pageRequest = PageRequest.of(page, elements);
+        return this.pizzaPagSortRepository.findAll(pageRequest);
     }
 
-    public List<PizzaEntity> getByAvailable() {
-        return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+    public Page<PizzaEntity> getByAvailable(int page, int elements, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        PageRequest pageRequest = PageRequest.of(page, elements, sort);
+        return this.pizzaPagSortRepository.findByAvailableTrue(pageRequest);
     }
 
     public PizzaEntity getById(int idPizza){
