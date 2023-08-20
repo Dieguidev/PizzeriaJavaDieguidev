@@ -3,6 +3,8 @@ package com.dieguidev.pizza.service;
 import com.dieguidev.pizza.persistence.entity.PizzaEntity;
 import com.dieguidev.pizza.persistence.repository.PizzaPagSortRepository;
 import com.dieguidev.pizza.persistence.repository.PizzaRepository;
+import com.dieguidev.pizza.service.dto.UpdatePizzaPriceDto;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,6 +63,12 @@ public class PizzaService {
 
     public void delete(int idPizza) {
         this.pizzaRepository.deleteById(idPizza);
+    }
+
+    //transactional vuelve atomico y ACID
+    @Transactional
+    public void updatePrice(UpdatePizzaPriceDto dto) {
+        this.pizzaRepository.updatePrice(dto);
     }
 
     //este metodo nos ayuda a saber si existe o no uuna pizza

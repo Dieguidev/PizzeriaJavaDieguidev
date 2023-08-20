@@ -20,6 +20,7 @@ public interface OrderRepository extends ListCrudRepository<OrderEntity, Integer
     @Query(value = "SELECT * FROM pizza_order WHERE id_customer = :id", nativeQuery = true)
     List<OrderEntity> findCustomerOrders(@Param("id") String idCustomer);
 
+    //resultado personalizado con @Query
     @Query(value=
             "SELECT po.id_order                AS idOrder,\n" +
             "         cu.name                    AS customerName,\n" +
