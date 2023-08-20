@@ -1,4 +1,4 @@
-package com.dieguidev.pizza.persistence.entity;
+package com.dieguidev.pizza.persistence.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
