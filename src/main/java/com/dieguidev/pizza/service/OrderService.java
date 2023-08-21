@@ -3,6 +3,8 @@ package com.dieguidev.pizza.service;
 import com.dieguidev.pizza.persistence.entity.OrderEntity;
 import com.dieguidev.pizza.persistence.projection.OrderSummary;
 import com.dieguidev.pizza.persistence.repository.OrderRepository;
+import com.dieguidev.pizza.service.dto.RandomOrderDto;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,11 @@ public class OrderService {
 
     public OrderSummary getSummary(int orderId) {
         return this.orderRepository.findSummary(orderId);
+    }
+
+    @Transactional
+    public boolean saveRandomOrder(RandomOrderDto randomOrderDto){
+        return  this.orderRepository.saveRandomOrder(randomOrderDto.getIdCustomer(), randomOrderDto.getMethod());
     }
 }
 
